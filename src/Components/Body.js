@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { FiFilter } from 'react-icons/fi'; // Ensure this import is correct
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import Modal from "./Modal";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [topRatedFilter, setTopRatedFilter] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -55,13 +58,13 @@ const Body = () => {
           className="p-2 border rounded flex-grow"
           placeholder="Search for restaurants..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} // Set the search term to lowercase
         />
         <button
-          className={`p-2 ${topRatedFilter ? 'bg-green-500' : 'bg-blue-500'} text-white rounded`}
-          onClick={() => setTopRatedFilter(!topRatedFilter)}
+          className="p-2 bg-blue-500 text-white rounded"
+          onClick={() => setIsModalOpen(true)}
         >
-          {topRatedFilter ? "Show All Restaurants" : "Top Rated Restaurants"}
+          <FiFilter size={24} />
         </button>
       </div>
       <div className="container mx-auto px-4">
@@ -75,6 +78,7 @@ const Body = () => {
                 cuisine={restaurant.info.cuisines.join(", ")}
                 imageId={restaurant.info.cloudinaryImageId}
                 avgRating={restaurant.info.avgRating}
+                deliveryTime={restaurant.info.sla.deliveryTime}
               />
             ))
           ) : (
@@ -82,6 +86,14 @@ const Body = () => {
           )}
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onApplyTopRated={() => {
+          setTopRatedFilter(true);
+          setIsModalOpen(false);
+        }}
+      />
     </div>
   );
 };
