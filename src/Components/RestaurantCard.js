@@ -12,7 +12,7 @@ const RestaurantCard = (props) => {
             alt={resName}
             className="w-full h-40 object-cover rounded-t-lg"
           />
-          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-sm flex justify-between items-center rounded-b-lg">
+          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-sm flex justify-between items-center ">
             <span className="font-bold">{resName}</span>
             <span>{avgRating} stars</span>
           </div>
@@ -30,4 +30,3 @@ const RestaurantCard = (props) => {
 };
 
 export default RestaurantCard;
-

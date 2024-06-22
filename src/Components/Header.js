@@ -9,7 +9,7 @@ const Header = () => {
             alt="Logo"
             className="h-10"
           />
-          <span className="ml-3 text-xl font-bold text-gray-800">MyCompany</span>
+          <span className="ml-3 text-xl font-bold text-gray-800 cursor-pointer">MyCompany</span>
         </div>
         <nav className="nav-items">
           <ul className="flex space-x-8 text-lg text-gray-600 font-bold">

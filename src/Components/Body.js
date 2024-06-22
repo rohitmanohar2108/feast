@@ -45,20 +45,18 @@ const Body = () => {
     )
     .filter((restaurant) => !topRatedFilter || restaurant.info.avgRating > 4.0);
 
-  
-
-  return listOfRestaurants.length === 0 ? <Shimmer /> :(
+  return listOfRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="p-4">
-      <div className="search mb-4">
+      <div className="flex items-center mb-4 space-x-4">
         <input
           type="text"
-          className="p-2 border rounded w-full"
+          className="p-2 border rounded flex-grow"
           placeholder="Search for restaurants..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div>
-      <div className="mb-4">
         <button
           className={`p-2 ${topRatedFilter ? 'bg-green-500' : 'bg-blue-500'} text-white rounded`}
           onClick={() => setTopRatedFilter(!topRatedFilter)}
@@ -67,6 +65,7 @@ const Body = () => {
         </button>
       </div>
       <div className="container mx-auto px-4">
+        <div className="text-2xl font-bold mb-4">Best Place To Eat Across City</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredRestaurants.length > 0 ? (
             filteredRestaurants.map((restaurant) => (
