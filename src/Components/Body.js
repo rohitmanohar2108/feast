@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { FiFilter } from 'react-icons/fi'; // Ensure this import is correct
+import { FiFilter } from "react-icons/fi"; // Ensure this import is correct
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import Modal from "./Modal";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [topRatedFilter, setTopRatedFilter] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +24,7 @@ const Body = () => {
       console.log(json);
 
       let restaurants = extractRestaurants(json.data.cards);
-      console.log("restaurants:", restaurants); // Log to inspect structure
+      console.log("restaurants:", restaurants);
 
       setListOfRestaurants(restaurants);
     } catch (error) {
@@ -58,7 +59,7 @@ const Body = () => {
           className="p-2 border rounded flex-grow"
           placeholder="Search for restaurants..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} // Set the search term to lowercase
+          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
         />
         <button
           className="p-2 bg-blue-500 text-white rounded"
@@ -68,10 +69,9 @@ const Body = () => {
         </button>
       </div>
       <div className="container mx-auto px-4">
-        <div className="text-2xl font-bold mb-4">Best Place To Eat Across City</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredRestaurants.length > 0 ? (
-            filteredRestaurants.map((restaurant) => (
+        {filteredRestaurants.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredRestaurants.map((restaurant) => (
               <RestaurantCard
                 key={restaurant.info.id} // Assuming restaurant has a unique ID
                 resName={restaurant.info.name}
@@ -80,11 +80,11 @@ const Body = () => {
                 avgRating={restaurant.info.avgRating}
                 deliveryTime={restaurant.info.sla.deliveryTime}
               />
-            ))
-          ) : (
-            <p>No restaurants found</p>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-gray-500">No restaurants found</p>
+        )}
       </div>
       <Modal
         isOpen={isModalOpen}
